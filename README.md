@@ -5,7 +5,7 @@
 ## MODELS
 - Post --> date:date rationale:text
 - User --> Devise awesome gem
-- AdminUser --> STI
+- AdminUser --> STI - Single Table Inheritance
 
 ## FEATURES
 - Approval Workflow
