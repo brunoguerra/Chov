@@ -13,7 +13,10 @@ describe "posts navigate" do
     end
 
     describe "creation posts" do
+
       before do
+        user = User.create(email: "john@doe.com", password: "123456", password_confirmation: "123456", first_name: "John", last_name: "Doe")
+        login_as(user, :scope => :user)
         visit new_post_path
       end
 
@@ -25,9 +28,18 @@ describe "posts navigate" do
         fill_in 'post[date]', with: Date.today
         fill_in 'post[rationale]', with: 'Some rationale'
         click_on 'Save'
+
         expect(page).to have_content('Some rationale')
       end
+
+      it "have a user associated it" do
+        fill_in 'post[date]', with: Date.today
+        fill_in 'post[rationale]', with: 'User Association'
+        click_on 'Save'
+ 
+        expect(User.last.posts.last.rationale).to eq('User Association')
+      end
+
     end
   end
-  
 end
